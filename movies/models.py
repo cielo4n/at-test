@@ -26,7 +26,7 @@ class Movie(models.Model):
     medium_cover_image = models.CharField(max_length=500, blank=True, default='')
     large_cover_image = models.CharField(max_length=500, blank=True, default='')
 
-    status = models.CharField(max_length=200, blank=True, default='')
+    state = models.CharField(max_length=200, blank=True, default='')
 
     date_uploaded = models.DateTimeField(auto_now=True)
     date_uploaded_unix = models.IntegerField(default=0)
