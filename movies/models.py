@@ -1,6 +1,10 @@
 from django.db import models
 
 
+class Genre(models.Model):
+    name = models.CharField(max_length=200)
+
+
 # POST : title, year, rating, genres, summary 만 필수입력
 class Movie(models.Model):
     url = models.CharField(max_length=500, blank=True, default='')
@@ -12,6 +16,8 @@ class Movie(models.Model):
     year = models.IntegerField(default=0)
     rating = models.FloatField(default=0)
     runtime = models.IntegerField(default=0)
+
+    genres = models.ManyToManyField(Genre)
 
     summary = models.TextField()
     description_full = models.TextField(blank=True, default='')
@@ -44,11 +50,3 @@ class Torrent(models.Model):
     date_uploaded = models.DateTimeField(auto_now=True)
     date_uploaded_unix = models.IntegerField(default=0)
 
-
-class Genre(models.Model):
-    name = models.CharField(max_length=200)
-
-
-class MovieGenre(models.Model):
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
