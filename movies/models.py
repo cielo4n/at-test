@@ -4,6 +4,9 @@ from django.db import models
 class Genre(models.Model):
     name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 
 # POST : title, year, rating, genres, summary 만 필수입력
 class Movie(models.Model):
@@ -36,6 +39,9 @@ class Movie(models.Model):
 
     date_uploaded = models.DateTimeField(auto_now=True)
     date_uploaded_unix = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
 
 
 class Torrent(models.Model):
