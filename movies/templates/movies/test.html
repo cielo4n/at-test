@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form action="/movies/list/" method="post">
+        {% csrf_token %}
+        title <input type="text" id="title" name="title", value="The A"><br>
+        year <input type="number" id="year" name="year", value="2018"><br>
+        rating <input type="number" id="rating" name="rating" value="1.1"><br>
+        genres <input type="text" id="genres" name="genres", value="Comedy, Romance"><br>
+        summary <input type="text" id="summary" name="summary" value="aaaaaaaaaaaaaaaaaaaaaa"><br>
+        <input type="submit">
+    </form>
+
+</body>
+</html>
+<script>
+
+</script>

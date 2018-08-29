@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 import requests
 from .models import Movie, Genre, Torrent
 from datetime import datetime
@@ -167,5 +167,38 @@ def movie_list_view(request):
         return HttpResponse(json.dumps(res), content_type='application/json')
 
     elif request.method == 'POST':
-        pass
-    return HttpResponse({}, content_type='application/json')
+        title = request.POST.get('title', '')
+        year = int(request.POST.get('year', 0))
+        rating = float(request.POST.get('rating', 0))
+        genres = request.POST.get('genres', '')
+        summary = request.POST.get('summary', '')
+
+        movie = Movie(
+            title=title,
+            year=year,
+            rating=rating,
+            summary=summary,
+            date_uploaded=datetime.now(),
+            date_uploaded_unix=int(datetime.now().timestamp())
+        )
+        movie.save()
+        genre_list = genres.split(',')
+        genre_list = [gen.strip() for gen in genre_list]
+
+        for gl in genre_list:
+            if Genre.objects.filter(name__iexact=gl):
+                gen = Genre.objects.get(name__iexact=gl)
+            else:
+                gen = Genre(name=gl)
+                gen.save()
+            movie.genres.add(gen)
+
+        movie_dict = model_to_dict(movie)
+        movie_dict['genres'] = [g.name for g in movie_dict['genres']]
+        return HttpResponse(json.dumps(movie_dict), content_type='application/json')
+
+    return HttpResponseBadRequest()
+
+
+def test_view(request):
+    return render(request, 'movies/test.html')
