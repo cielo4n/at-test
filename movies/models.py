@@ -9,8 +9,8 @@ class Movie(models.Model):
     title_english = models.CharField(max_length=500, blank=True, default='')
     title_long = models.CharField(max_length=500, blank=True, default='')
     slug = models.SlugField(max_length=500, blank=True, default='')
-    year = models.IntegerField()
-    rating = models.FloatField()
+    year = models.IntegerField(default=0)
+    rating = models.FloatField(default=0)
     runtime = models.IntegerField(default=0)
 
     summary = models.TextField()
@@ -29,7 +29,7 @@ class Movie(models.Model):
     status = models.CharField(max_length=200, blank=True, default='')
 
     date_uploaded = models.DateTimeField(auto_now=True)
-    date_uploaded_unix = models.IntegerField()
+    date_uploaded_unix = models.IntegerField(default=0)
 
 
 class Torrent(models.Model):
@@ -37,12 +37,12 @@ class Torrent(models.Model):
     url = models.CharField(max_length=500, blank=True, default='')
     hash = models.CharField(max_length=500, blank=True, default='')
     quality = models.CharField(max_length=200, blank=True, default='')
-    seeds = models.IntegerField()
-    peers = models.IntegerField()
+    seeds = models.IntegerField(default=0)
+    peers = models.IntegerField(default=0)
     size = models.CharField(max_length=200, blank=True, default='')
-    size_bytes = models.IntegerField()
+    size_bytes = models.IntegerField(default=0)
     date_uploaded = models.DateTimeField(auto_now=True)
-    date_uploaded_unix = models.IntegerField()
+    date_uploaded_unix = models.IntegerField(default=0)
 
 
 class Genre(models.Model):
